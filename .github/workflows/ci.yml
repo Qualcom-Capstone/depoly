@@ -23,6 +23,5 @@ jobs:
             docker-compose.backend.yml
             docker-compose.portainer.yml
             docker-compose.traefik.yml
-            traefik/traefik.yml
-            traefik/dynamic_conf.yml
+            traefik
           target: /home/ubuntu/app
