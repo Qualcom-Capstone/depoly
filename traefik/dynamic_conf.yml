@@ -1,6 +1,6 @@
 http:
   routers:
-    spring-app-router: # 라우터 이름 명확화 (선택 사항)
+    django-app-router: # 라우터 이름 명확화 (선택 사항)
       rule: "Host(`api.autonotify.store`) && PathPrefix(`/api/v1`)"
       entryPoints:
         - websecure # HTTPS (443) 엔트리포인트 사용
