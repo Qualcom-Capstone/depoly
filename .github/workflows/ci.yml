@@ -12,11 +12,10 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@
+        uses: actions/checkout@v3
 
-      - name: Check file list
-        run: ls -R
-
+      - name: List files for debug
+        run: ls -al && ls -al backend
 
       - name: Upload Traefik and Compose files to Server
         uses: appleboy/scp-action@v0.1.4
