@@ -1,0 +1,28 @@
+name: CI - Upload Compose & Traefik Files
+
+on:
+  push:
+    branches:
+      - main  # 또는 원하는 브랜치로 설정
+
+jobs:
+  upload-files:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Upload Traefik and Compose files to Server
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          source: |
+            docker-compose.backend.yml
+            docker-compose.portainer.yml
+            docker-compose.traefik.yml
+            traefik/traefik.yml
+            traefik/dynamic_conf.yml
+          target: /home/ubuntu/app
