@@ -32,5 +32,3 @@ jobs:
             docker-compose.traefik.yml
             traefik
           target: /home/ubuntu/app
-          # 🔽 현재 작업 디렉토리를 명시적으로 지정
-          workdir: /home/runner/work/depoly/depoly
