@@ -1,14 +1,15 @@
 name: CD - Deploy to Server via SSH
 
 on:
-  push:
-    branches:
-      - main   # ✅ main에 push되면 항상 CD 실행
-    paths-ignore:
-      - '.github/workflows/ci.yml'  # ✅ CI만 수정되면 CD는 실행되지 않음 (선택)
+  workflow_dispatch:  # ✅ 수동 실행 지원
+  workflow_run:
+    workflows: ["CI - Upload Compose & Traefik Files"]  # CI 워크플로우 이름
+    types:
+      - completed
 
 jobs:
   deploy:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     environment: production
 
