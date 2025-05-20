@@ -1,8 +1,6 @@
 http:
   routers:
     spring-app-router: # 라우터 이름 명확화 (선택 사항)
-      # Host 규칙은 정확히 api.rexume.site 만을 대상으로 함
-      # PathPrefix 규칙도 유지
       rule: "Host(`api.autonotify.store`) && PathPrefix(`/api/v1`)"
       entryPoints:
         - websecure # HTTPS (443) 엔트리포인트 사용

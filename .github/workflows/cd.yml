@@ -40,6 +40,8 @@ jobs:
             export RABBITMQ_PASSWORD="${{ secrets.RABBITMQ_PASSWORD }}"
             export DOCKER_USERNAME="${{ secrets.DOCKER_USERNAME }}"
             export DOCKER_IMAGE_NAME="${{ secrets.DOCKER_IMAGE_NAME }}"
+            
+            export TRAEFIK_DASHBOARD_AUTH="${{ secrets.TRAEFIK_DASHBOARD_AUTH }}"
 
             cd /home/ubuntu/app
             
@@ -54,6 +56,9 @@ jobs:
               -f docker-compose.portainer.yml \
               -f docker-compose.traefik.yml \
               down
+            
+            docker image prune -f
+            docker volume prune -f
       
             docker compose \
               -f docker-compose.backend.yml \
