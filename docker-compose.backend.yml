@@ -17,11 +17,20 @@ services:
   backend:
     image: ${DOCKER_USERNAME}/${DOCKER_IMAGE_NAME}:latest
     container_name: backend
+    volumes:
+      - /home/ubuntu/app/secrets/firebase-credentials.json:/app/secrets/firebase-credentials.json:ro
     environment:
       - DJANGO_SETTINGS_MODULE=backend.settings.prod
       - MYSQL_DATABASE=${MYSQL_DATABASE}
       - MYSQL_USER=${MYSQL_USER}
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - SECRET_KEY=${SECRET_KEY}
+      - GOOGLE_APPLICATION_CREDENTIALS=/app/secrets/firebase-credentials.json
+      - AWS_ACCESS_KEY=${AWS_ACCESS_KEY}
+      - AWS_SECRET_KEY=${AWS_SECRET_KEY}
+      - AWS_S3_BUCKET_NAME=${AWS_S3_BUCKET_NAME}
+      - AWS_S3_REGION=${AWS_S3_REGION}
+
     command: >
       bash -c "python wait_mysql.py &&
       python manage.py migrate &&
