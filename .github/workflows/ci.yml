@@ -14,8 +14,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: List files for debug
-        run: ls -al && ls -al backend
+      - name: Check file list
+        run: |
+          echo "🔍 현재 디렉토리:" && pwd
+          echo "📁 파일 목록:" && ls -al
+          echo "📁 traefik 내부:" && ls -al traefik || echo "❌ traefik 폴더 없음"
 
       - name: Upload Traefik and Compose files to Server
         uses: appleboy/scp-action@v0.1.4
