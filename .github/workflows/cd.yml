@@ -25,6 +25,8 @@ jobs:
           key: ${{ secrets.SERVER_PEM_KEY }}
           script: |
             export SECRET_KEY="${{ secrets.SECRET_KEY }}"
+            export DJANGO_SETTINGS_MODULE="${{ secrets.DJANGO_SETTINGS_MODULE }}"
+            
             export MYSQL_USER="${{ secrets.MYSQL_USER }}"
             export MYSQL_PASSWORD="${{ secrets.MYSQL_PASSWORD }}"
             export MYSQL_DATABASE="${{ secrets.MYSQL_DATABASE }}"
