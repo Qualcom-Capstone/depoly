@@ -49,8 +49,25 @@ jobs:
             
             export RABBITMQ_USER="${{ secrets.RABBITMQ_USER }}"
             export RABBITMQ_PASSWORD="${{ secrets.RABBITMQ_PASSWORD }}"
+            export DOCKER_USERNAME="${{ secrets.DOCKER_USERNAME }}"
+            export DOCKER_IMAGE_NAME="${{ secrets.DOCKER_IMAGE_NAME }}"
 
             cd /home/ubuntu/app
-            docker compose -f docker-compose.backend.yml pull
-            docker compose -f docker-compose.portainer.yml down
-            docker compose -f docker-compose.traefik.yml up -d --build
+            
+            docker compose \
+              -f docker-compose.backend.yml \
+              -f docker-compose.portainer.yml \
+              -f docker-compose.traefik.yml \
+              pull
+      
+            docker compose \
+              -f docker-compose.backend.yml \
+              -f docker-compose.portainer.yml \
+              -f docker-compose.traefik.yml \
+              down
+      
+            docker compose \
+              -f docker-compose.backend.yml \
+              -f docker-compose.portainer.yml \
+              -f docker-compose.traefik.yml \
+              up -d --build
