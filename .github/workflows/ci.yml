@@ -14,8 +14,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@
 
-      - name:
-          디버깅: 파일 존재 여부 확인
+      - name: 파일 존재 여부 확인
         run: |
           echo "Current directory:"
           pwd
