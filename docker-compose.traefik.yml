@@ -30,3 +30,6 @@ services:
 networks:
   app-network:
     external: true
+
+  web:
+    external: true
