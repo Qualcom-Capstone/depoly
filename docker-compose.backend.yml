@@ -16,7 +16,6 @@ services:
 
   backend:
     image: ${DOCKER_USERNAME}/${DOCKER_IMAGE_NAME}:latest
-    build: .
     container_name: backend
     volumes:
       - ./:/app
