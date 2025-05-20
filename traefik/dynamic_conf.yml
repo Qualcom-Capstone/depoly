@@ -22,12 +22,12 @@ http:
     auth:
       basicAuth:
         users:
-          - "${TRAEFIK_DASHBOARD_AUTH}"
+          - "autonotify:$2y$05$nk3Iz..3eY6AhbgWcPJz/.hv2Wvbnq6ddgSjrnoLsxDvMPWdm4Jga"
     # 대시보드 인증 미들웨어 정의 (실제 사용은 Traefik API 라우터 설정에서 필요 시 적용)
     dashboard-auth:
       basicAuth:
         users:
-          - "${TRAEFIK_DASHBOARD_AUTH}"
+          - "autonotify:$2y$05$nk3Iz..3eY6AhbgWcPJz/.hv2Wvbnq6ddgSjrnoLsxDvMPWdm4Jga"
 
     # Rate Limit 미들웨어 정의
     rate-limit:
