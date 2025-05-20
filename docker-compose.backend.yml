@@ -54,8 +54,8 @@ services:
       - 5672
 
   celery_worker:
+    image: ${DOCKER_USERNAME}/${DOCKER_IMAGE_NAME}:latest
     container_name: celery_worker
-    build: .
     volumes:
       - ./:/app
     #    command: sh -c "celery -A backend worker --loglevel=info"
@@ -70,8 +70,8 @@ services:
     tty: true
 
   celery_worker_dlq:
+    image: ${DOCKER_USERNAME}/${DOCKER_IMAGE_NAME}:latest
     container_name: celery_worker_dlq
-    build: .
     command: celery -A backend worker --loglevel=info -Q dlq_notify_queue
     volumes:
       - ./:/app
@@ -85,8 +85,8 @@ services:
     tty: true
 
   celery_beat:
+    image: ${DOCKER_USERNAME}/${DOCKER_IMAGE_NAME}:latest
     container_name: celery_beat
-    build: .
     volumes:
       - ./:/app
     command: sh -c "celery -A backend beat --loglevel=info"
