@@ -18,7 +18,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: List files for debug
-        run: ls -al && ls -al backend
+        run: ls -al
 
       - name: Upload docker-compose file to server
         uses: appleboy/scp-action@v0.1.4
