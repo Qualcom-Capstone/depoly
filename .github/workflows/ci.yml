@@ -3,7 +3,7 @@ name: CI - Upload Compose & Traefik Files
 on:
   push:
     branches:
-      - main  # 또는 원하는 브랜치로 설정
+      - main
 
 jobs:
   upload-files:
@@ -13,12 +13,15 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          lfs: true
 
-      - name: Check file list
+      - name: 현재 파일 목록 확인
         run: |
-          echo "🔍 현재 디렉토리:" && pwd
-          echo "📁 파일 목록:" && ls -al
-          echo "📁 traefik 내부:" && ls -al traefik || echo "❌ traefik 폴더 없음"
+          pwd
+          ls -al
+          ls -al traefik || echo "traefik 없음"
 
       - name: Upload Traefik and Compose files to Server
         uses: appleboy/scp-action@v0.1.4
