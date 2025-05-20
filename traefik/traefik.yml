@@ -23,7 +23,7 @@ accessLog: {}
 providers:
   docker:
     exposedByDefault: false
-    network: web # spring-app 컨테이너가 연결된 Docker 네트워크 이름
+    network: web
   file:
     filename: "/etc/traefik/dynamic_conf.yml" # 컨테이너 내부 경로. 실제 마운트 경로 확인 필요
     # watch: true # 필요 시 파일 변경 감지 활성화

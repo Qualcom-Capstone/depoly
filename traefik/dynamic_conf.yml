@@ -12,7 +12,7 @@ http:
 
 
   services:
-    spring-app-service: # 서비스 이름 명확화 (선택 사항)
+    django-app-service: # 서비스 이름 명확화 (선택 사항)
       loadBalancer:
         servers:
           # 백엔드 서비스 컨테이너의 이름과 포트를 Docker 네트워크 기준으로 지정
