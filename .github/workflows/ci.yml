@@ -27,8 +27,10 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_PEM_KEY }}
           source: |
-            ./docker-compose.backend.yml
-            ./docker-compose.portainer.yml
-            ./docker-compose.traefik.yml
-            ./traefik
+            docker-compose.backend.yml
+            docker-compose.portainer.yml
+            docker-compose.traefik.yml
+            traefik
           target: /home/ubuntu/app
+          # 🔽 현재 작업 디렉토리를 명시적으로 지정
+          workdir: /home/runner/work/depoly/depoly
