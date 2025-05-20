@@ -14,13 +14,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@
 
-      - name: 파일 존재 여부 확인
-        run: |
-          echo "Current directory:"
-          pwd
-          echo "File list:"
-          ls -al
-          ls -al traefik
+      - name: Check file list
+        run: ls -R
+
 
       - name: Upload Traefik and Compose files to Server
         uses: appleboy/scp-action@v0.1.4
