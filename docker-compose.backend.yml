@@ -68,9 +68,16 @@ services:
     container_name: celery_worker
     #    command: sh -c "celery -A backend worker --loglevel=info"
     command: celery -A backend worker --concurrency=4 --loglevel=info
+    volumes:
+      - /home/ubuntu/app/secrets/firebase-credentials.json:/app/secrets/firebase-credentials.json:ro
     environment:
       - CELERY_BROKER_URL=amqp://guest:guest@rabbitmq:5672//
       - DJANGO_SETTINGS_MODULE=backend.settings.prod
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - GOOGLE_APPLICATION_CREDENTIALS=/app/secrets/firebase-credentials.json
+
     depends_on:
       - rabbitmq
       - backend
@@ -81,9 +88,15 @@ services:
     image: ${DOCKER_USERNAME}/${DOCKER_IMAGE_NAME}:latest
     container_name: celery_worker_dlq
     command: celery -A backend worker --loglevel=info -Q dlq_notify_queue
+    volumes:
+      - /home/ubuntu/app/secrets/firebase-credentials.json:/app/secrets/firebase-credentials.json:ro
     environment:
       - CELERY_BROKER_URL=amqp://guest:guest@rabbitmq:5672//
       - DJANGO_SETTINGS_MODULE=backend.settings.prod
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - GOOGLE_APPLICATION_CREDENTIALS=/app/secrets/firebase-credentials.json
     depends_on:
       - rabbitmq
       - backend
