@@ -50,4 +50,3 @@ jobs:
             tar -xzvf deploy_bundle.tar.gz
             rm deploy_bundle.tar.gz
           EOF
-      
