@@ -17,8 +17,6 @@ services:
   backend:
     image: ${DOCKER_USERNAME}/${DOCKER_IMAGE_NAME}:latest
     container_name: backend
-    volumes:
-      - ./:/app
     environment:
       - DJANGO_SETTINGS_MODULE=backend.settings.prod
     command: >
@@ -56,8 +54,6 @@ services:
   celery_worker:
     image: ${DOCKER_USERNAME}/${DOCKER_IMAGE_NAME}:latest
     container_name: celery_worker
-    volumes:
-      - ./:/app
     #    command: sh -c "celery -A backend worker --loglevel=info"
     command: celery -A backend worker --concurrency=4 --loglevel=info
     environment:
@@ -73,8 +69,6 @@ services:
     image: ${DOCKER_USERNAME}/${DOCKER_IMAGE_NAME}:latest
     container_name: celery_worker_dlq
     command: celery -A backend worker --loglevel=info -Q dlq_notify_queue
-    volumes:
-      - ./:/app
     environment:
       - CELERY_BROKER_URL=amqp://guest:guest@rabbitmq:5672//
       - DJANGO_SETTINGS_MODULE=backend.settings.prod
@@ -87,8 +81,6 @@ services:
   celery_beat:
     image: ${DOCKER_USERNAME}/${DOCKER_IMAGE_NAME}:latest
     container_name: celery_beat
-    volumes:
-      - ./:/app
     command: sh -c "celery -A backend beat --loglevel=info"
     environment:
       - CELERY_BROKER_URL=amqp://guest:guest@rabbitmq:5672//
