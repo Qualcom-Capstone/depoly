@@ -17,7 +17,7 @@ services:
     networks:
       - web # web 네트워크 연결
     environment:
-      - TRAEFIK_DASHBOARD_AUTH=rexume:$apr1$HtfOXLKL$QMj0r2dHvy0FnkLG.STWR1 # 대시보드 인증 정보
+      - TRAEFIK_DASHBOARD_AUTH=autonotify:$2y$05$nk3Iz..3eY6AhbgWcPJz/.hv2Wvbnq6ddgSjrnoLsxDvMPWdm4Jga # 대시보드 인증 정보
     labels:
       # 보안 대시보드 라우터 설정 (traefik.yourdomain.com 교체 필요)
       - "traefik.http.routers.traefik-dashboard.rule=Host(`traefik.autonotify.store`)"
