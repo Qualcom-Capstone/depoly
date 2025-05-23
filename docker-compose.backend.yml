@@ -37,10 +37,6 @@ services:
       exec gunicorn backend.wsgi:application --bind 0.0.0.0:8000 --workers=4 --threads=2"
     depends_on:
       - mysqldb
-#    labels:
-#      - "traefik.enable=true"
-#      - "traefik.http.routers.backend.rule=Host(`api.localhost`)"
-#      - "traefik.http.services.backend.loadbalancer.server.port=8000"
     networks:
       - app-network
 
