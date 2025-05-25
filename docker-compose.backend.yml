@@ -39,6 +39,7 @@ services:
       - mysqldb
     networks:
       - app-network
+      - web
 
   rabbitmq:
     image: "rabbitmq:3.13-management"
