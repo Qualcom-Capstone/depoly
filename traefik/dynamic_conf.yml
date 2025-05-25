@@ -1,35 +1,50 @@
 http:
   routers:
-    django-app-router: # 라우터 이름 명확화 (선택 사항)
+    django-app-router:
       rule: "Host(`api.autonotify.store`) && PathPrefix(`/api/v1`)"
       entryPoints:
-        - websecure # HTTPS (443) 엔트리포인트 사용
-      service: django-app-service # 서비스 이름 명확화 (선택 사항)
+        - websecure            # HTTPS(443)
+      service: django-app-service
       tls:
-        certResolver: letsencrypt # Let's Encrypt 사용 명시
+        certResolver: letsencrypt
       middlewares:
-        - rate-limit # 적용할 미들웨어
-
+        - cors                 # ✅ CORS 헤더 주입
+        - rate-limit           # ✅ 기존 레이트 리밋 유지
 
   services:
-    django-app-service: # 서비스 이름 명확화 (선택 사항)
+    django-app-service:
       loadBalancer:
         servers:
-          # 백엔드 서비스 컨테이너의 이름과 포트를 Docker 네트워크 기준으로 지정
           - url: "http://backend:8000"
 
   middlewares:
+    cors:                      # ✅ 신규 CORS 미들웨어
+      headers:
+        accessControlAllowOriginList:
+          - "https://autonotify.store"
+          - "https://www.autonotify.store"
+        accessControlAllowMethods:
+          - GET
+          - POST
+          - PUT
+          - PATCH
+          - DELETE
+          - OPTIONS
+        accessControlAllowHeaders:
+          - "*"
+        accessControlAllowCredentials: true
+        addVaryHeader: true
+
     auth:
       basicAuth:
         users:
           - "autonotify:$2y$05$nk3Iz..3eY6AhbgWcPJz/.hv2Wvbnq6ddgSjrnoLsxDvMPWdm4Jga"
-    # 대시보드 인증 미들웨어 정의 (실제 사용은 Traefik API 라우터 설정에서 필요 시 적용)
+
     dashboard-auth:
       basicAuth:
         users:
           - "autonotify:$2y$05$nk3Iz..3eY6AhbgWcPJz/.hv2Wvbnq6ddgSjrnoLsxDvMPWdm4Jga"
 
-    # Rate Limit 미들웨어 정의
     rate-limit:
       rateLimit:
         average: 50
