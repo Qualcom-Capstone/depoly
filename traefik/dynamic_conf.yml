@@ -11,17 +11,30 @@ http:
         - cors
         - rate-limit
 
+    portainer-router:
+      rule: "Host(`portainer.autonotify.store`)"
+      entryPoints:
+        - websecure
+      service: portainer-service
+      middlewares:
+        - dashboard-auth     # 포테이너 대시보드 인증
+
   services:
     django-app-service:
       loadBalancer:
         servers:
           - url: "http://backend:8000"
 
+    portainer-service:
+      loadBalancer:
+        servers:
+          - url: "http://portainer:9000"
+
   middlewares:
     cors:
       headers:
         accessControlAllowOriginList:
-          - "*"                                  # 모든 호스트 허용
+          - "*"
         accessControlAllowMethods:
           - GET
           - POST
@@ -34,18 +47,17 @@ http:
         accessControlAllowCredentials: true
         addVaryHeader: true
 
+    rate-limit:
+      rateLimit:
+        average: 50
+        burst: 100
 
-  auth:
-    basicAuth:
-      users:
-        - "autonotify:$2y$05$nk3Iz..3eY6AhbgWcPJz/.hv2Wvbnq6ddgSjrnoLsxDvMPWdm4Jga"
+    auth:
+      basicAuth:
+        users:
+          - "autonotify:$2y$05$nk3Iz..3eY6AhbgWcPJz/.hv2Wvbnq6ddgSjrnoLsxDvMPWdm4Jga"
 
-  dashboard-auth:
-    basicAuth:
-      users:
-        - "autonotify:$2y$05$nk3Iz..3eY6AhbgWcPJz/.hv2Wvbnq6ddgSjrnoLsxDvMPWdm4Jga"
-
-  rate-limit:
-    rateLimit:
-      average: 50
-      burst: 100
+    dashboard-auth:
+      basicAuth:
+        users:
+          - "autonotify:$2y$05$nk3Iz..3eY6AhbgWcPJz/.hv2Wvbnq6ddgSjrnoLsxDvMPWdm4Jga"
