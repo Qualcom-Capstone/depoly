@@ -63,7 +63,6 @@ services:
   celery_worker:
     image: ${DOCKER_USERNAME}/${DOCKER_CELERY_NAME}:latest
     container_name: celery_worker
-    #    command: sh -c "celery -A backend worker --loglevel=info"
     command: celery -A backend worker --concurrency=4 --loglevel=info
     volumes:
       - /home/ubuntu/app/secrets/firebase-credentials.json:/app/secrets/firebase-credentials.json:ro
