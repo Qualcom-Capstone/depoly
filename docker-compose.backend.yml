@@ -59,6 +59,9 @@ services:
     tty: true   # restart: unless-stopped??
     expose:
       - 5672
+    networks:
+      - app-network
+      - web
 
   celery_worker:
     image: ${DOCKER_USERNAME}/${DOCKER_IMAGE_NAME}:latest
@@ -79,6 +82,8 @@ services:
       - backend
     restart: always
     tty: true
+    networks:
+        - app-network
 
   celery_worker_dlq:
     image: ${DOCKER_USERNAME}/${DOCKER_IMAGE_NAME}:latest
@@ -98,6 +103,8 @@ services:
       - backend
     restart: always
     tty: true
+    networks:
+      - app-network
 
   celery_beat:
     image: ${DOCKER_USERNAME}/${DOCKER_IMAGE_NAME}:latest
@@ -111,6 +118,8 @@ services:
       - backend
     restart: always
     tty: true
+    networks:
+      - app-network
 
   flower:
     image: mher/flower
@@ -124,6 +133,9 @@ services:
       - rabbitmq
       - celery_worker
       - celery_beat
+    networks:
+        - app-network
+        - web
 
 networks:
   app-network:
