@@ -42,6 +42,7 @@ jobs:
             export RABBITMQ_PASSWORD="${{ secrets.RABBITMQ_PASSWORD }}"
             export DOCKER_USERNAME="${{ secrets.DOCKER_USERNAME }}"
             export DOCKER_IMAGE_NAME="${{ secrets.DOCKER_IMAGE_NAME }}"
+            export DOCKER_CELERY_NAME="${{ secrets.DOCKER_CELERY_NAME }}"
             
             export TRAEFIK_DASHBOARD_AUTH="${{ secrets.TRAEFIK_DASHBOARD_AUTH }}"
 
