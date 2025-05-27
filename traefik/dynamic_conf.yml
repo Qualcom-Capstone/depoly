@@ -3,13 +3,13 @@ http:
     django-app-router:
       rule: "Host(`api.autonotify.store`) && PathPrefix(`/api/v1`)"
       entryPoints:
-        - websecure            # HTTPS(443)
+        - websecure
       service: django-app-service
       tls:
         certResolver: letsencrypt
       middlewares:
-        - cors                 # ✅ CORS 헤더 주입
-        - rate-limit           # ✅ 기존 레이트 리밋 유지
+        - cors
+        - rate-limit
 
   services:
     django-app-service:
@@ -18,11 +18,10 @@ http:
           - url: "http://backend:8000"
 
   middlewares:
-    cors:                      # ✅ 신규 CORS 미들웨어
+    cors:
       headers:
         accessControlAllowOriginList:
-          - "https://autonotify.store"
-          - "https://www.autonotify.store"
+          - "*"                                  # 모든 호스트 허용
         accessControlAllowMethods:
           - GET
           - POST
@@ -35,17 +34,18 @@ http:
         accessControlAllowCredentials: true
         addVaryHeader: true
 
-    auth:
-      basicAuth:
-        users:
-          - "autonotify:$2y$05$nk3Iz..3eY6AhbgWcPJz/.hv2Wvbnq6ddgSjrnoLsxDvMPWdm4Jga"
 
-    dashboard-auth:
-      basicAuth:
-        users:
-          - "autonotify:$2y$05$nk3Iz..3eY6AhbgWcPJz/.hv2Wvbnq6ddgSjrnoLsxDvMPWdm4Jga"
+  auth:
+    basicAuth:
+      users:
+        - "autonotify:$2y$05$nk3Iz..3eY6AhbgWcPJz/.hv2Wvbnq6ddgSjrnoLsxDvMPWdm4Jga"
 
-    rate-limit:
-      rateLimit:
-        average: 50
-        burst: 100
+  dashboard-auth:
+    basicAuth:
+      users:
+        - "autonotify:$2y$05$nk3Iz..3eY6AhbgWcPJz/.hv2Wvbnq6ddgSjrnoLsxDvMPWdm4Jga"
+
+  rate-limit:
+    rateLimit:
+      average: 50
+      burst: 100
