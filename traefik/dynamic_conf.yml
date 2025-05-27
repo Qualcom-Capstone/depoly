@@ -47,11 +47,6 @@ http:
         accessControlAllowCredentials: true
         addVaryHeader: true
 
-    rate-limit:
-      rateLimit:
-        average: 50
-        burst: 100
-
     auth:
       basicAuth:
         users:
